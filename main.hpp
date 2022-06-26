@@ -21,6 +21,8 @@
 #define PLATFORM_STRING "Windows"
 #define PLATFORM_WINDOWS 1
 
+#define NOMINMAX
+
 #else
 
 #define STL_IS_AVAILABLE 0

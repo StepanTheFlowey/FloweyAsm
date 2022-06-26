@@ -2,6 +2,7 @@
 
 #include "Terminal.hpp"
 #include "Workspace.hpp"
+#include "switch.h"
 
 #if EXPLORER_IMPL_STL
 #include <fstream>
@@ -44,7 +45,7 @@ bool Explorer::touch(const String& path) {
 }
 
 bool Explorer::list() {
- return list(getCwd());
+  return list(getCwd());
 }
 
 bool Explorer::list(const String& path) {
@@ -84,6 +85,28 @@ bool Explorer::rm(const String& path) {
 
 void Explorer::interactive() {
 #if EXPLORER_IMPL_STL
+  bool work = true;
+  String com;
+  while(work) {
+    terminal.print(getCwd());
+    terminal.print("> ");
+    terminal.scan(com);
 
+    switch(strHashSwitch(com.c_str())) {
+      case strHashSwitch("exit"):
+        work = false;
+        break;
+      case strHashSwitch("ls"):
+        list();
+        break;
+      case strHashSwitch(""):
+        break;
+      default:
+        terminal.println("Not found");
+        break;
+    }
+
+    terminal.flush();
+  }
 #endif
 }

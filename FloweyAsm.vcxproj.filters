@@ -47,5 +47,8 @@
     <ClInclude Include="Workspace.hpp">
       <Filter>Includes</Filter>
     </ClInclude>
+    <ClInclude Include="switch.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

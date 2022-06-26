@@ -39,6 +39,8 @@ public:
   
   void scanln(String& string);
 
+  void flush();
+
   void clear();
 protected:
 

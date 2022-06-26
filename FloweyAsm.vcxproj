@@ -145,6 +145,7 @@
     <ClInclude Include="Explorer.hpp" />
     <ClInclude Include="main.hpp" />
     <ClInclude Include="String.hpp" />
+    <ClInclude Include="switch.h" />
     <ClInclude Include="Terminal.hpp" />
     <ClInclude Include="Workspace.hpp" />
   </ItemGroup>

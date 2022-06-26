@@ -68,19 +68,39 @@ string_size_t Terminal::scan(char* buff, string_size_t size) {
 void Terminal::scan(String& string) {
 #if TERMINAL_IMPL_STL
   std::string str;
-  std::cin >> str;
+  std::cin.clear();
+  while(!std::cin.eof()) {
+    char ch = std::cin.get();
+    if(ch == ' ' || ch == '\n') {
+      break;
+    }
+    str.push_back(ch);
+  }
   string = str;
 #endif
 }
 
 string_size_t Terminal::scanln(char* buff, string_size_t size) {
+#if TERMINAL_IMPL_STL
   return scan(buff, size);
+#endif
 }
 
 void Terminal::scanln(String& string) {
+#if TERMINAL_IMPL_STL
   std::string str;
   std::getline(std::cin, str);
   string = str;
+#endif
+}
+
+void Terminal::flush() {
+#if TERMINAL_IMPL_STL
+  std::cout.flush();
+  std::cin.clear();
+  std::cin.putback('\n');
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+#endif
 }
 
 void Terminal::clear() {
