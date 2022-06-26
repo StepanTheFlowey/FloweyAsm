@@ -36,6 +36,8 @@ public:
 
 #if STL_IS_AVAILABLE
   String(const std::string& string);
+    
+  String(const std::filesystem::path& path);
 #endif
 
 #if STRING_IMPL_CHAR
@@ -43,6 +45,8 @@ public:
 #elif STRING_IMPL_STL
   ~String() = default;
 #endif
+
+  bool isEmpty() const;
 
   char at(const string_size_t pos) const;
 

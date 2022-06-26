@@ -19,4 +19,6 @@ void Workspace::check() {
   if(!explorer.isExist(WORKSPACE_DIR_DYNAMIC)) {
     explorer.mkdir(WORKSPACE_DIR_DYNAMIC);
   }
+
+  explorer.setRoot(WORKSPACE_DIR_STATIC);
 }

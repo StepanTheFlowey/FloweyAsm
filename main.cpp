@@ -19,8 +19,10 @@ int main() {
 
   while(true) {
     terminal.print(stringShoice);
+    char ch = terminal.get();
+    terminal.flush();
 
-    switch(terminal.get()) {
+    switch(ch) {
       case '1':
         explorer.interactive();
         break;

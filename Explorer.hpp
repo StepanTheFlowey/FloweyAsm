@@ -3,6 +3,7 @@
 #include "main.hpp"
 
 #if STL_IS_AVAILABLE
+#include <filesystem>
 #define EXPLORER_IMPL_STL 1
 #endif
 
@@ -21,9 +22,11 @@ public:
 
   bool isFile(const String& path);
 
-  String getCwd() const;
+  void check(bool b);
 
-  void chdir(const String& path);
+  String chdir() const;
+
+  bool chdir(const String& path);
 
   bool touch(const String& path);
 
@@ -35,8 +38,17 @@ public:
 
   bool rmdir(const String& path);
 
-  bool rm(const String& path);
+  bool remove(const String& path);
 
   void interactive();
+
+#if EXPLORER_IMPL_STL
+  void setRoot(const std::filesystem::path root);
+#endif
+
+protected:
+#if EXPLORER_IMPL_STL
+  std::filesystem::path root_;
+#endif
 };
 extern Explorer explorer;

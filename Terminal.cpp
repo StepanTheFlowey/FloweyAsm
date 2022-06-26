@@ -59,25 +59,79 @@ void Terminal::println(const String& string) {
   println();
 }
 
+String Terminal::scan(bool checkAvailable) {
+  String string;
+  scan(string, checkAvailable);
+  return string;
+}
+
 string_size_t Terminal::scan(char* buff, string_size_t size) {
 #if TERMINAL_IMPL_STL
   return static_cast<string_size_t>(std::cin.read(buff, size).gcount());
 #endif
 }
 
-void Terminal::scan(String& string) {
+void Terminal::scan(String& string, bool checkAvailable) {
 #if TERMINAL_IMPL_STL
-  std::string str;
-  std::cin.clear();
-  while(!std::cin.eof()) {
-    char ch = std::cin.get();
-    if(ch == ' ' || ch == '\n') {
-      break;
+  if(checkAvailable) {
+    if(std::cin.rdbuf()->in_avail() <= 0) {
+      return;
     }
-    str.push_back(ch);
   }
+
+  std::string str;
+
+  using myis = std::istream;
+  using mytraits = myis::traits_type;
+
+  bool changed = false;
+  myis::iostate state = myis::goodbit;
+  myis::sentry ok(std::cin, true);
+
+  if(ok) {
+    try {
+      str.erase();
+      const mytraits::int_type metadelim0 = mytraits::to_int_type('\n');
+      const mytraits::int_type metadelim1 = mytraits::to_int_type(' ');
+      mytraits::int_type meta = std::cin.rdbuf()->sgetc();
+
+      for(;; meta = std::cin.rdbuf()->snextc()) {
+        if(mytraits::eq_int_type(mytraits::eof(), meta)) {
+          state |= myis::eofbit;
+          break;
+        }
+        else if(mytraits::eq_int_type(meta, metadelim0) ||
+                mytraits::eq_int_type(meta, metadelim1)) {
+          changed = true;
+          std::cin.rdbuf()->sbumpc();
+          break;
+        }
+        else if(str.max_size() <= str.size()) {
+          state |= myis::failbit;
+        }
+        else {
+          str += mytraits::to_char_type(meta);
+          changed = true;
+        }
+      }
+    }
+    catch(...) {
+      std::cin.setstate(myis::badbit, true);
+    }
+  }
+
+  if(!changed) {
+    state |= myis::failbit;
+  }
+  std::cin.setstate(state);
   string = str;
 #endif
+}
+
+String Terminal::scanln() {
+  String string;
+  scanln(string);
+  return string;
 }
 
 string_size_t Terminal::scanln(char* buff, string_size_t size) {
@@ -98,8 +152,9 @@ void Terminal::flush() {
 #if TERMINAL_IMPL_STL
   std::cout.flush();
   std::cin.clear();
-  std::cin.putback('\n');
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  if(std::cin.rdbuf()->in_avail() > 0) {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  }
 #endif
 }
 

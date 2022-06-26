@@ -27,6 +27,7 @@ String::String(const String& string) {
 #endif // STRING_IMPL_CHAR
 }
 
+#if STL_IS_AVAILABLE
 String::String(const std::string& string) {
 #if STRING_IMPL_CHAR
   size_ = string.size() + 1;
@@ -37,6 +38,18 @@ String::String(const std::string& string) {
 #endif // STRING_IMPL_CHAR
 }
 
+String::String(const std::filesystem::path& path) {
+#if STRING_IMPL_CHAR
+  std::string string=path.string();
+  size_ = string.size() + 1;
+  string_ = new char[size_];
+  strcpy_s(string_, static_cast<size_t>(size_), string.c_str());
+#elif STRING_IMPL_STL
+  string_ = path.string();
+#endif // STRING_IMPL_CHAR
+}
+#endif
+
 #if STRING_IMPL_CHAR
 String::~String() {
   if(string_ != nullptr) {
@@ -44,6 +57,14 @@ String::~String() {
   }
 }
 #endif
+
+bool String::isEmpty() const {
+#if STRING_IMPL_CHAR
+  return size_ == 0;
+#else
+  return string_.empty();
+#endif
+}
 
 char String::at(const string_size_t pos) const {
 #if STRING_IMPL_CHAR

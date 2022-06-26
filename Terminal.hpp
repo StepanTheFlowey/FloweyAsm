@@ -31,12 +31,16 @@ public:
 
   void println(const String& string);
 
+  String scan(bool checkAvailable = false);
+
   string_size_t scan(char* buff, string_size_t size);
 
-  void scan(String& string);
+  void scan(String& string, bool checkAvailable = false);
+
+  String scanln();
 
   string_size_t scanln(char* buff, string_size_t size);
-  
+
   void scanln(String& string);
 
   void flush();
