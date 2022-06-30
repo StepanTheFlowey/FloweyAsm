@@ -135,14 +135,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Compiller.cpp" />
+    <ClCompile Include="Executor.cpp" />
     <ClCompile Include="Explorer.cpp" />
+    <ClCompile Include="Interpretter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="Terminal.cpp" />
     <ClCompile Include="Workspace.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Compiller.hpp" />
+    <ClInclude Include="Executor.hpp" />
     <ClInclude Include="Explorer.hpp" />
+    <ClInclude Include="Interpretter.hpp" />
     <ClInclude Include="main.hpp" />
     <ClInclude Include="String.hpp" />
     <ClInclude Include="switch.h" />

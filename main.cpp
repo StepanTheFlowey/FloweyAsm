@@ -3,6 +3,7 @@
 #include "Terminal.hpp"
 #include "Explorer.hpp"
 #include "Workspace.hpp"
+#include "Interpretter.hpp"
 
 void shutdown() {
   terminal.clear();
@@ -15,7 +16,6 @@ int main() {
   terminal.println(stringWelcome);
 
   workspace.load();
-  workspace.check();
 
   while(true) {
     terminal.print(stringShoice);
@@ -29,6 +29,8 @@ int main() {
       case '2':
         shutdown();
         break;
+      case '3':
+
     }
 
     terminal.clear();

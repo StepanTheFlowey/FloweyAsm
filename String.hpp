@@ -10,6 +10,7 @@
 #if STRING_FORCE_IMPL_CHAR
 
 #define STRING_IMPL_CHAR 1
+#define STRING_IMPL_STL 0
 
 #else
 
@@ -23,6 +24,7 @@
 
 #if PLATFORM_WINDOWS
 using string_size_t = size_t;
+constexpr string_size_t string_npos = static_cast<string_size_t>(-1);
 #endif
 
 class String {
@@ -36,7 +38,7 @@ public:
 
 #if STL_IS_AVAILABLE
   String(const std::string& string);
-    
+
   String(const std::filesystem::path& path);
 #endif
 
@@ -46,25 +48,47 @@ public:
   ~String() = default;
 #endif
 
-  bool isEmpty() const;
-
   char at(const string_size_t pos) const;
 
-  inline string_size_t getSize() const {
-#if STRING_IMPL_CHAR
-    return size_ - 1;
-#elif STRING_IMPL_STL
-    return string_.size();
-#endif
-  }
+  bool isEmpty() const;
 
-  inline const char* c_str() const {
-#if STRING_IMPL_STL
-    return string_.c_str();
-#elif STRING_IMPL_CHAR
-    return string_;
-#endif
-  }
+  string_size_t getSize() const;
+
+  const char* c_str() const;
+
+  void clear();
+
+  const char& getFront() const;
+
+  char& getFront();
+
+  const char& getBack() const;
+
+  char& getBack();
+
+  const char* getBegin() const;
+
+  char* getBegin();
+
+  const char* getEnd() const;
+
+  char* getEnd();
+
+  void resize(string_size_t size);
+
+  void erase(string_size_t pos, string_size_t count = 1);
+
+  void pushFront(char ch);
+
+  void popFront();
+
+  void popFront(string_size_t count);
+
+  void pushBack(char ch);
+
+  void popBack();
+
+  void popBack(string_size_t count);
 
   inline char& operator[](const string_size_t pos) {
     return string_[pos];

@@ -5,14 +5,6 @@
 Workspace workspace;
 
 void Workspace::load() {
-
-}
-
-void Workspace::save() {
-
-}
-
-void Workspace::check() {
   if(!explorer.isExist(WORKSPACE_DIR_STATIC)) {
     explorer.mkdir(WORKSPACE_DIR_STATIC);
   }
@@ -21,4 +13,8 @@ void Workspace::check() {
   }
 
   explorer.setRoot(WORKSPACE_DIR_STATIC);
+}
+
+void Workspace::save() {
+
 }

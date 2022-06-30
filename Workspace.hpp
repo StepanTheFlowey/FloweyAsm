@@ -13,7 +13,5 @@ public:
   void load();
 
   void save();
-
-  void check();
 };
 extern Workspace workspace;
