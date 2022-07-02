@@ -30,7 +30,8 @@ int main() {
         shutdown();
         break;
       case '3':
-
+        Interpretter().interactive();
+        break;
     }
 
     terminal.clear();

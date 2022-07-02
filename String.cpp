@@ -4,6 +4,19 @@
 #include <string.h>
 #endif
 
+String::String(const char ch) {
+#if STRING_IMPL_STL
+  string_ = ch;
+#elif STRING_IMPL_CHAR
+  if(cstr == nullptr) {
+    return;
+  }
+  size_ = static_cast<string_size_t>(strlen(cstr) + 1);
+  string_ = new char[size_] {};
+  strcpy_s(string_, static_cast<size_t>(size_), cstr);
+#endif
+}
+
 String::String(const char* cstr) {
 #if STRING_IMPL_STL
   string_ = cstr;
@@ -50,6 +63,86 @@ String::String(const std::filesystem::path& path) {
 }
 #endif
 
+String::String(const short integer) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_ = std::to_string(integer);
+#endif // STRING_IMPL_CHAR
+}
+
+String::String(const unsigned short integer) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_ = std::to_string(integer);
+#endif // STRING_IMPL_CHAR
+}
+
+String::String(const int integer) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_ = std::to_string(integer);
+#endif // STRING_IMPL_CHAR
+}
+
+String::String(const unsigned int integer) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_ = std::to_string(integer);
+#endif // STRING_IMPL_CHAR
+}
+
+String::String(const long integer) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_ = std::to_string(integer);
+#endif // STRING_IMPL_CHAR
+}
+
+String::String(const unsigned long integer) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_ = std::to_string(integer);
+#endif // STRING_IMPL_CHAR
+}
+
+String::String(const long long integer) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_ = std::to_string(integer);
+#endif // STRING_IMPL_CHAR
+}
+
+String::String(const unsigned long long integer) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_ = std::to_string(integer);
+#endif // STRING_IMPL_CHAR
+}
+
+String::String(const float real) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_ = std::to_string(real);
+#endif // STRING_IMPL_CHAR
+}
+
+String::String(const double real) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_ = std::to_string(real);
+#endif // STRING_IMPL_CHAR
+}
+
 #if STRING_IMPL_CHAR
 String::~String() {
   if(string_ != nullptr) {
@@ -75,6 +168,26 @@ char String::at(const string_size_t pos) const {
 #elif STRING_IMPL_STL
   return string_.at(pos);
 #endif
+}
+
+void String::append(const String string) {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  string_.append(string.string_);
+#endif
+}
+
+void String::truncate() {
+  if(isEmpty()) {
+    return;
+  }
+  while(getFront() == ' ') {
+    popFront();
+  }
+  while(getBack() == ' ') {
+    popBack();
+  }
 }
 
 string_size_t String::getSize() const {
@@ -201,7 +314,7 @@ void String::popFront() {
 #if STRING_IMPL_CHAR
 
 #elif STRING_IMPL_STL
-  string_.erase();
+  string_.erase(0, 1);
 #endif
 }
 
@@ -234,6 +347,38 @@ void String::popBack(string_size_t count) {
 
 #elif STRING_IMPL_STL
   string_.erase(string_.end() - count, string_.end());
+#endif
+}
+
+int String::parseInt() {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  return std::stoi(string_);
+#endif
+}
+
+long String::parseLong() {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  return std::stol(string_);
+#endif
+}
+
+float String::parseFloat() {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  return std::stof(string_);
+#endif
+}
+
+double String::parseDouble() {
+#if STRING_IMPL_CHAR
+
+#elif STRING_IMPL_STL
+  return std::stod(string_);
 #endif
 }
 
@@ -295,6 +440,12 @@ String& String::operator=(const std::string& string) noexcept {
   string_ = string;
 #endif
   return *this;
+}
+
+String String::operator+(const String string) {
+  String str = *this;
+  str.append(string);
+  return str;
 }
 
 #if STL_IS_AVAILABLE

@@ -1,35 +1,42 @@
 //
-//   OP   Syntax                             OPID DONE  Description
-//   ---- BASE ---------------------------------------------------
-//   NOP                                     0    true  Idle clock
-//   HALT                                    1    true  Idle user
-//   ---- REGISTERS -----------------------------------
-//   MOV  <reg to> <from>                    2    true  Sets register to value
-//   SWAP <reg first> <reg second>           3    true  Swaps registers
-//   ---- BASIC LOGIC ---------------------------------
-//   SNT  <reg out> <a>                      4    false Set NoT
-//   SEQ  <reg out> <a> <b>                  5    false Set EQual
-//   SNQ  <reg out> <a> <b>                  6    false Set Not eQual
-//   SGE  <reg out> <a> <b>                  7    false Set Greater Equal
-//   SLE  <reg out> <a> <b>                  8    false Set Less Equal
-//   SGT  <reg out> <a> <b>                  9    false Set Greater Than
-//   SLT  <reg out> <a> <b>                  10   false Set Less Than
-//   ---- BASIC MATH ----------------------------------
-//   ADD  <reg out> <a> <b>                  11   true  Adds numbers
-//   SUB  <reg out> <a> <b>                  12   true  Substracts numbers
-//   MUL  <reg out> <a> <b>                  13   true  Multiplys numbers
-//   DIV  <reg out> <a> <b>                  14   true  Divides numbers
-//   ---- STACK ---------------------------------------
-//   PUSH <num in>                           15   false Pushs number to stack
-//   POP  <reg out>                          16   false Pops number from stack to register
-//   ---- MEMORY --------------------------------------
-//   LD   <reg in> <address>                 17   false Loads value from page
-//   ST   <address> <reg out>                18   false Stores value to page
-//   ---- BRANCH --------------------------------------
-//   JMP  <line>                             19   false Jumps to line
-//   JMPR <line offset>                      20   false Jumps relative to line
-//   JSR  <subroutine>                       21   false Calls subroutine
-//   RST                                     22   false Exits subroutine
+// OP   Syntax                             OPID Description
+// ---- BASE ----------------------------------------------
+// NOP                                     0    Idle clock
+// BRK                                     1    Debug break
+// HALT <const code>                       2    Stops program
+// ---- REGISTERS -----------------------------------
+// SET  <a> <c>                            3    ra = c
+// MOV  <a> <b>                            4    ra = rb
+// SWAP <a> <b>                            5    Swaps registers
+// ---- BASIC LOGIC ---------------------------------
+// SNT  <reg out> <a>                      6    Set NoT
+// SEQ  <reg out> <a> <b>                  7    Set EQual
+// SNQ  <reg out> <a> <b>                  8    Set Not eQual
+// SGE  <reg out> <a> <b>                  9    Set Greater Equal
+// SLE  <reg out> <a> <b>                  10   Set Less Equal
+// SGT  <reg out> <a> <b>                  11   Set Greater Than
+// SLT  <reg out> <a> <b>                  12   Set Less Than
+// ---- BASIC MATH ----------------------------------
+// ADD  <a> <b>                            13   ra += rb
+// SUB  <a> <b>                            14   ra -= rb
+// MUL  <a> <b>                            15   ra *= rb
+// DIV  <a> <b>                            16   ra /= rb
+// ---- STACK ---------------------------------------
+// PUSH <num in>                           17   Pushs number to stack
+// POP  <reg out>                          18   Pops number from stack to register
+// ---- MEMORY --------------------------------------
+// LD   <reg in> <address>                 19   Loads value from page
+// ST   <address> <reg out>                20   Stores value to page
+// ---- BRANCH --------------------------------------
+// JMP  <line>                             21   Jumps to line
+// JMPR <line offset>                      22   Jumps relative to line
+// JSR  <subroutine>                       23   Calls subroutine
+// RST                                     24   Exits subroutine
+//
+//Halt codes:
+// Code Description
+// 0    Sucsessful
+// 1    Error
 //
 #pragma once
 
@@ -81,5 +88,6 @@ const char stringWelcome[] =
 const char stringShoice[] =
 "1. Explorer\n"
 "2. Exit\n"
+"3. Interpretter\n"
 "Select: "
 ;

@@ -32,6 +32,8 @@ public:
 
   String() = default;
 
+  String(const char ch);
+
   String(const char* cstr);
 
   String(const String& string);
@@ -41,6 +43,26 @@ public:
 
   String(const std::filesystem::path& path);
 #endif
+
+  String(const short integer);
+
+  String(const unsigned short integer);
+
+  String(const int integer);
+
+  String(const unsigned int integer);
+
+  String(const long integer);
+
+  String(const unsigned long integer);
+
+  String(const long long integer);
+
+  String(const unsigned long long integer);
+
+  String(const float real);
+
+  String(const double real);
 
 #if STRING_IMPL_CHAR
   ~String();
@@ -54,9 +76,9 @@ public:
 
   string_size_t getSize() const;
 
-  const char* c_str() const;
-
-  void clear();
+  inline string_size_t getLenght() const {
+    return getSize();
+  }
 
   const char& getFront() const;
 
@@ -73,6 +95,22 @@ public:
   const char* getEnd() const;
 
   char* getEnd();
+  
+  const char* c_str() const;
+
+  int parseInt();
+
+  long parseLong();
+
+  float parseFloat();
+
+  double parseDouble();
+
+  void clear();
+
+  void append(const String string);
+
+  void truncate();
 
   void resize(string_size_t size);
 
@@ -99,6 +137,8 @@ public:
   String& operator=(String&& string) noexcept;
 
   String& operator=(const std::string& string) noexcept;
+
+  String operator+(const String string);
 
 #if STL_IS_AVAILABLE
   operator std::string() const;
