@@ -9,13 +9,13 @@
 // MOV  <a> <b>                            4    ra = rb
 // SWAP <a> <b>                            5    Swaps registers
 // ---- BASIC LOGIC ---------------------------------
-// SNT  <reg out> <a>                      6    Set NoT
-// SEQ  <reg out> <a> <b>                  7    Set EQual
-// SNQ  <reg out> <a> <b>                  8    Set Not eQual
-// SGE  <reg out> <a> <b>                  9    Set Greater Equal
-// SLE  <reg out> <a> <b>                  10   Set Less Equal
-// SGT  <reg out> <a> <b>                  11   Set Greater Than
-// SLT  <reg out> <a> <b>                  12   Set Less Than
+// SNT  <a>                                6    a = !a
+// SEQ  <a> <b>                            7    a = a == b
+// SNQ  <a> <b>                            8    a = a != b
+// SGE  <a> <b>                            9    a = a >= b
+// SLE  <a> <b>                            10   a = b <= b
+// SGT  <a> <b>                            11   a = a > b
+// SLT  <a> <b>                            12   a = a < b
 // ---- BASIC MATH ----------------------------------
 // ADD  <a> <b>                            13   ra += rb
 // SUB  <a> <b>                            14   ra -= rb

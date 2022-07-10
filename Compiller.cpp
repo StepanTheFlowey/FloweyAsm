@@ -11,10 +11,18 @@ const OperationDescription translateTable[] = {
   { "MOV" , 2, Operation::MOV  },
   { "SWAP", 2, Operation::SWAP },
 
+  { "SNT" , 1, Operation::SNT  },
+  { "SEQ" , 2, Operation::SEQ  },
+  { "SNQ" , 2, Operation::SNQ  },
+  { "SGE" , 2, Operation::SGE  },
+  { "SLE" , 2, Operation::SLE  },
+  { "SGT" , 2, Operation::SGT  },
+  { "SLT" , 2, Operation::SLT  },
+
   { "ADD" , 2, Operation::ADD  },
   { "SUB" , 2, Operation::SUB  },
   { "MUL" , 2, Operation::MUL  },
-  { "DIV" , 2, Operation::DIV  },
+  { "DIV" , 2, Operation::DIV  }
 };
 constexpr int translateTableSize = sizeof(translateTable) / sizeof(OperationDescription);
 
@@ -80,6 +88,7 @@ OperationBytecode Compiller::processLine(const String& lineIn) {
       switch(code.op) {
         case Op::HALT:
           code.argConstInt[0] = str.parseLong();
+          break;
         case Op::SET:
           if(arg == 0) {
             code.argRegs[0] = str.parseInt();

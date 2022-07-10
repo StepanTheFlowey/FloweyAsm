@@ -18,16 +18,34 @@ enum class Operation : operation_id_t {
   MOV,
   SWAP,
 
-  ADD = 12,
+  SNT,
+  SEQ,
+  SNQ,
+  SGE,
+  SLE,
+  SGT,
+  SLT,
+
+  ADD,
   SUB,
   MUL,
   DIV,
 
+  PUSH,
+  POP,
+
+  LD,
+  ST,
+
+  JMP,
+  JMPR,
+  JSR,
+  RST,
+
   NOT_AN_OP
 };
 
-constexpr register_number_t REGISTER_COUNT = 32;
-
+constexpr register_number_t REGISTER_COUNT = 16;
 
 struct OperationDescription {
   const char* name = nullptr;

@@ -36,6 +36,44 @@ bool Executor::advence(const OperationBytecode instruction) {
       registers_[instruction.argRegs[0]] = registers_[instruction.argRegs[1]];
       break;
 
+    case Op::SWAP:
+      std::swap(registers_[instruction.argRegs[0]], registers_[instruction.argRegs[1]]);
+      break;
+
+    case Op::SNT:
+      registers_[instruction.argRegs[0]] = !registers_[instruction.argRegs[0]];
+      break;
+
+    case Op::SEQ:
+      registers_[instruction.argRegs[0]]
+        = registers_[instruction.argRegs[0]] == registers_[instruction.argRegs[1]];
+      break;
+
+    case Op::SNQ:
+      registers_[instruction.argRegs[0]]
+        = registers_[instruction.argRegs[0]] != registers_[instruction.argRegs[1]];
+      break;
+
+    case Op::SGE:
+      registers_[instruction.argRegs[0]]
+        = registers_[instruction.argRegs[0]] >= registers_[instruction.argRegs[1]];
+      break;
+
+    case Op::SLE:
+      registers_[instruction.argRegs[0]]
+        = registers_[instruction.argRegs[0]] <= registers_[instruction.argRegs[1]];
+      break;
+
+    case Op::SGT:
+      registers_[instruction.argRegs[0]]
+        = registers_[instruction.argRegs[0]] > registers_[instruction.argRegs[1]];
+      break;
+
+    case Op::SLT:
+      registers_[instruction.argRegs[0]]
+        = registers_[instruction.argRegs[0]] < registers_[instruction.argRegs[1]];
+      break;
+
     case Op::ADD:
       registers_[instruction.argRegs[0]] += registers_[instruction.argRegs[1]];
       break;
